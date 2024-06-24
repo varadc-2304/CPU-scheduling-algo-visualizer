@@ -126,3 +126,15 @@ function displayGanttChart(process, elapsedBurstTime) {
 function getTotalBurstTime() {
     return processes.reduce((total, process) => total + process.burstTime, 0);
 }
+
+function resetSimulation() {
+    clearInterval(intervalId);
+    intervalId = null;
+    processes = [];
+    timerValue = 0;
+    document.getElementById('timer-value').textContent = '0';
+    document.querySelector('#process-table tbody').innerHTML = '';
+    document.getElementById('gantt-chart-content').innerHTML = '';
+    document.querySelector('.input-form button').disabled = false;
+    document.getElementById('resume-pause-btn').textContent = 'GO'; // Reset button text
+}

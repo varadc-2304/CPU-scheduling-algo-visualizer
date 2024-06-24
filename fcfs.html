@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>FCFS Scheduler</title>
+    <link rel="stylesheet" href="fcfs.css">
+</head>
+<body>
+    <div class="container">
+        <div class="container-header">
+            <h2>FCFS Scheduler</h2>
+        </div>
+        
+        <div class="input-form">
+            <label for="arrival-time">Arrival Time:</label>
+            <input type="number" id="arrival-time">
+            <label for="burst-time">Burst Time:</label>
+            <input type="number" id="burst-time">
+            <button onclick="addProcess()">Add Process</button>
+        </div>
+        
+        <table id="process-table">
+            <thead>
+                <tr>
+                    <th>Process</th>
+                    <th>Arrival Time</th>
+                    <th>Burst Time</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Table rows will be dynamically added -->
+            </tbody>
+        </table>
+        
+        <div class="btn-group">
+            <button class="btn" onclick="toggleSimulation()" id="resume-pause-btn">GO</button>
+            <button class="btn" onclick="resetSimulation()">Reset</button>
+        </div>
+        
+        
+        <div class="timeline">
+            <div id="scale" class="scale">
+                <!-- Static scale labels -->
+                <div class='scale-label'>1</div>
+                <div class='scale-label'>2</div>
+                <div class='scale-label'>3</div>
+                <div class='scale-label'>4</div>
+                <div class='scale-label'>5</div>
+                <div class='scale-label'>6</div>
+                <div class='scale-label'>7</div>
+                <div class='scale-label'>8</div>
+                <div class='scale-label'>9</div>
+                <div class='scale-label'>10</div>
+                <div class='scale-label'>11</div>
+                <div class='scale-label'>12</div>
+                <div class='scale-label'>13</div>
+                <div class='scale-label'>14</div>
+                <div class='scale-label'>15</div>
+                <div class='scale-label'>16</div>
+                <div class='scale-label'>17</div>
+                <div class='scale-label'>18</div>
+                <div class='scale-label'>19</div>
+                <div class='scale-label'>20</div>
+            </div>
+            <div class="timeline-bar" id="gantt-chart-content">
+                <!-- Gantt chart bars will be dynamically added -->
+            </div>
+            <div id="timer">Timer: <span id="timer-value">0</span></div>
+        </div>
+    </div>
+
+    <script src="fcfs.js"></script>
+</body>
+</html>
