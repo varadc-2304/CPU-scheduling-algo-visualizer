@@ -14,9 +14,21 @@ function addProcess() {
             arrivalTime: arrivalTime,
             burstTime: burstTime
         };
-        processes.push(process);
         
-        // Update the table with the new process
+        // Insert the new process in sorted order based on arrival time
+        let inserted = false;
+        for (let i = 0; i < processes.length; i++) {
+            if (arrivalTime < processes[i].arrivalTime) {
+                processes.splice(i, 0, process);
+                inserted = true;
+                break;
+            }
+        }
+        if (!inserted) {
+            processes.push(process); // Insert at the end if it's the largest arrival time
+        }
+        
+        // Update the table with the new sorted processes
         updateTable();
         
         // Clear input fields
@@ -46,6 +58,8 @@ function toggleSimulation() {
     
     if (btn.textContent === 'GO') {
         btn.textContent = 'Running...';
+        // Sort processes by arrival time before starting simulation
+        processes.sort((a, b) => a.arrivalTime - b.arrivalTime);
         startSimulation();
     }
 }
@@ -108,6 +122,19 @@ function displayGanttChart(process, elapsedBurstTime) {
     // Calculate width based on current burst time (fixed width for each time unit)
     let width = 50; // Fixed width for each time unit
 
+    // Check if there's a previous process
+    if (processes.indexOf(process) > 0) {
+        let previousProcess = processes[processes.indexOf(process) - 1];
+
+        // Calculate the earliest start time for the current process
+        let earliestStartTime = previousProcess.arrivalTime + previousProcess.burstTime;
+
+        // Ensure the current process starts no earlier than its earliest possible start time
+        if (process.arrivalTime < earliestStartTime) {
+            leftPosition = earliestStartTime * 50; // Adjust multiplier as needed
+        }
+    }
+
     // Check if the process has been displayed before
     let existingBar = document.querySelector(`.timeline-bar-item[data-process-id="${processes.indexOf(process)}"]`);
     if (existingBar) {
@@ -122,6 +149,7 @@ function displayGanttChart(process, elapsedBurstTime) {
         ganttChartContent.insertAdjacentHTML('beforeend', barHTML);
     }
 }
+
 
 function getTotalBurstTime() {
     return processes.reduce((total, process) => total + process.burstTime, 0);

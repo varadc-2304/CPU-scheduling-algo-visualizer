@@ -136,25 +136,27 @@ th {
 }
 
 .timeline-bar {
-    display: flex;
     position: relative;
     width: 100%;
     height: 30px;
     background-color: lightgray;
     border-radius: 5px;
-    margin-top: 10px;
+    overflow: hidden; /* Ensure bars don't overflow horizontally */
 }
 
 .timeline-bar-item {
     position: absolute;
+    top: 0;
+    left: 0;
     height: 100%;
-    background-color: green; /* Green background color */
+    background-color: green;
     color: white;
     text-align: center;
     border-radius: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
+    transition: width 0.5s; /* Smooth transition for bar width */
 }
 
 /* Scale styles */
