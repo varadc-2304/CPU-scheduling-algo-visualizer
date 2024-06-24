@@ -1,0 +1,77 @@
+/* Reset default styles and set global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(231, 231, 231);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container-header {
+    display: flex;
+    justify-content: center;
+}
+
+.container-header h2 {
+    font-size: 1.8rem;
+    color: green;
+    margin-bottom: 10px;
+}
+
+.tab {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+}
+
+.tab button {
+    height: 40px;
+    padding: 0 20px;
+    font-size: 1rem;
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.tab button:hover {
+    background-color: rgb(1, 50, 32);
+}
+
+.tab button:active {
+    transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+    .container-header {
+        flex-direction: column;
+        align-items: flex-start;
+    }
+
+    .tab {
+        justify-content: flex-start;
+    }
+}
