@@ -4,6 +4,7 @@ let intervalId = null; // Interval ID for timer
 let isPaused = false; // Flag to check if simulation is paused
 let currentProcessIndex = 0;
 let elapsedBurstTime = 0;
+let startingPositions = []; // Array to store starting positions
 
 function addProcess() {
     let arrivalInput = document.getElementById('arrival-time');
@@ -71,6 +72,7 @@ function toggleSimulation() {
 
         // Sort processes by arrival time before starting simulation
         processes.sort((a, b) => a.arrivalTime - b.arrivalTime);
+        calculateStartingPositions(); // Calculate starting positions
         btn.textContent = 'Running...';
 
         // If intervalId is not null, clear the existing interval before starting a new one
@@ -85,6 +87,18 @@ function toggleSimulation() {
     }
 }
 
+function calculateStartingPositions() {
+    startingPositions = [];
+    let currentTime = 0;
+
+    processes.forEach((process, index) => {
+        if (currentTime < process.arrivalTime) {
+            currentTime = process.arrivalTime;
+        }
+        startingPositions.push(currentTime);
+        currentTime += process.burstTime;
+    });
+}
 
 function startSimulation() {
     if (processes.length === 0) {
@@ -140,19 +154,20 @@ function updateSimulation() {
 function displayGanttChart(process, elapsedBurstTime) {
     let ganttChartContent = document.getElementById('gantt-chart-content');
 
-    // Calculate left position based on arrival time and current burst time
-    let leftPosition = process.arrivalTime * 50; // Adjust multiplier as needed
-
     // Calculate width based on current burst time (fixed width for each time unit)
     let width = (elapsedBurstTime + 1) * 50; // Fixed width for each time unit
+
+    // Get the starting position from the pre-calculated array
+    let leftPosition = startingPositions[processes.indexOf(process)] * 50;
 
     // Check if the process has been displayed before
     let existingBar = document.querySelector(`.timeline-bar-item[data-process-id="${processes.indexOf(process)}"]`);
     if (existingBar) {
-        // Increment the width of the existing bar
+        // Increment the width of the existing bar with transition effect
+        existingBar.style.transition = 'width 0.5s ease'; // Add transition effect
         existingBar.style.width = `${width}px`;
     } else {
-        // Create a new bar for the process
+        // Create a new bar for the process with transition effect
         let barHTML = `<div class="timeline-bar-item" style="left: ${leftPosition}px; width: ${width}px;" data-process-id="${processes.indexOf(process)}" data-time="${elapsedBurstTime}">
                           P${processes.indexOf(process) + 1} <!-- Process ID displayed in the center -->
                       </div>`;
@@ -160,11 +175,11 @@ function displayGanttChart(process, elapsedBurstTime) {
     }
 }
 
-
 function resetGanttChart() {
     document.getElementById('gantt-chart-content').innerHTML = '';
     document.getElementById('timer-value').textContent = '0';
 }
+
 function getTotalBurstTime() {
     return processes.reduce((total, process) => total + process.burstTime, 0);
 }
@@ -177,6 +192,7 @@ function resetSimulation() {
     isPaused = false;
     currentProcessIndex = 0;
     elapsedBurstTime = 0;
+    startingPositions = [];
     document.getElementById('timer-value').textContent = '0';
     document.querySelector('#process-table tbody').innerHTML = '';
     document.getElementById('gantt-chart-content').innerHTML = '';
@@ -184,6 +200,7 @@ function resetSimulation() {
     document.getElementById('go-btn').textContent = 'GO'; // Reset button text
     document.getElementById('pause-resume-btn').textContent = 'Pause'; // Reset button text
 }
+
 // Function to toggle between Pause and Resume
 function togglePauseResume() {
     let btn = document.getElementById('pause-resume-btn');
@@ -233,7 +250,6 @@ function prev() {
     }
 }
 
-
 function next() {
     timerValue++;
     document.getElementById('timer-value').textContent = timerValue;
@@ -255,7 +271,6 @@ function next() {
         document.getElementById('go-btn').textContent = 'GO'; // Reset button text
     }
 }
-
 
 function calculateCurrentProcess() {
     currentProcessIndex = 0;
@@ -293,7 +308,6 @@ function updateGanttChart() {
     });
 }
 
-
 function removeGanttBarAtCurrentTime() {
     let bars = document.querySelectorAll(`.timeline-bar-item`);
     bars.forEach(bar => {
@@ -316,4 +330,3 @@ function removeGanttBarAtCurrentTime() {
         }
     });
 }
-
