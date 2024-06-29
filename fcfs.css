@@ -26,6 +26,7 @@ body {
     display: flex;
     flex-direction: column;
     gap: 20px;
+    animation: fadeIn 1s ease-in-out;
 }
 
 .container-header {
@@ -194,5 +195,13 @@ th {
 
     .input-form {
         justify-content: flex-start;
+    }
+}
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
     }
 }
