@@ -1,0 +1,273 @@
+/* Reset default styles and set global styles */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Poppins", sans-serif;
+}
+
+body {
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: rgb(231, 231, 231);
+}
+
+.container {
+    width: 90%;
+    max-width: 1200px;
+    background-color: white;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    margin: 20px;
+    border-radius: 10px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+}
+
+.container-header {
+    display: flex;
+    justify-content: center;
+}
+
+.container-header h2 {
+    font-size: 1.8rem;
+    color: green;
+    margin-bottom: 10px;
+}
+
+.input-form {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+
+.input-form label {
+    font-size: 1.2rem;
+    color: green;
+}
+
+.input-form input {
+    width: 60px;
+    padding: 5px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 1rem;
+}
+
+.input-form button {
+    height: 40px;
+    padding: 0 20px;
+    font-size: 1rem;
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.input-form button:hover {
+    background-color: rgb(1, 50, 32);
+}
+
+.input-form button:active {
+    transform: scale(0.95);
+}
+
+.btn-group {
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.btn {
+    height: 50px;
+    padding: 0 20px;
+    font-size: 1.2rem;
+    background-color: green;
+    color: white;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    border: none;
+}
+
+.btn:hover {
+    background-color: rgb(1, 50, 32);
+}
+
+.btn:active {
+    transform: scale(0.95);
+}
+
+/* Table styles */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+
+th, td {
+    padding: 10px;
+    border: 1px solid #ccc;
+    text-align: center;
+}
+
+th {
+    background-color: green;
+    color: white;
+}
+
+/* Gantt Chart styles */
+.timeline {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #f0f0f0;
+    border-radius: 5px;
+    position: relative; /* Ensure relative positioning for absolute children */
+}
+
+.timeline-bar {
+    position: relative;
+    width: 100%;
+    height: 30px;
+    background-color: lightgray;
+    border-radius: 5px;
+    overflow: hidden; /* Ensure bars don't overflow horizontally */
+}
+
+.timeline-bar-item {
+    position: absolute;
+    top: 0;
+    height: 100%;
+    background-color: green;
+    color: white;
+    text-align: center;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.scale {
+    display: flex;
+    position: relative;
+    width: 100%;
+    height: 20px;
+    margin-top: 10px;
+    justify-content: space-evenly;
+}
+
+.scale-label {
+    width: 50px;
+    text-align: center;
+    font-size: 0.8rem;
+    color: black;
+}
+
+/* Timer styles */
+#timer {
+    font-size: 1.5rem;
+    color: green;
+    background-color: #f0f0f0;
+    padding: 10px;
+    border-radius: 5px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+/* Toggle switch styles */
+.toggle-switch {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    justify-content: center;
+}
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 60px;
+    height: 34px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: 0.4s;
+    border-radius: 34px;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 26px;
+    width: 26px;
+    left: 4px;
+    bottom: 4px;
+    background-color: white;
+    transition: 0.4s;
+    border-radius: 50%;
+}
+
+input:checked + .slider {
+    background-color: green;
+}
+
+input:checked + .slider:before {
+    transform: translateX(26px);
+}
+
+@media (max-width: 768px) {
+    .container-header {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .input-form {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    .btn-group {
+        flex-direction: column;
+        align-items: center;
+    }
+    
+    table {
+        font-size: 0.8rem;
+    }
+    
+    th, td {
+        padding: 5px;
+    }
+    
+    #timer {
+        font-size: 1rem;
+    }
+    
+    .scale {
+        flex-direction: column;
+        align-items: center;
+    }
+}
